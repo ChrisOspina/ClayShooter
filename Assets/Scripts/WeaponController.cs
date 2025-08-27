@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using TMPro;
 
 public class WeaponController : MonoBehaviour
@@ -15,9 +16,10 @@ public class WeaponController : MonoBehaviour
 
     private bool isReloading = false;
 
-    [Header("Text Mesh Pro")]
+    [Header("UI")]
     public TMP_Text ammoText;
     public TMP_Text reloadText;
+    public GameObject pausePanel;
 
     [Header("VFX")]
     public float bulletSpeed;
@@ -33,6 +35,30 @@ public class WeaponController : MonoBehaviour
     Vector3 target = Vector3.zero;
     #endregion
 
+    #region audio mixer
+
+    public AudioMixer mixer;
+
+    float volume_master = 0;
+    float volume_music = 0;
+    float volume_sfx = 0;
+    float volume_ambient = 0;
+
+    bool mute = false;
+    bool pause = false;
+
+    void saveSettings()
+    {
+        //todo come back when mixer variables are set
+    }
+
+    void restoreSettings()
+    {
+        //todo come back when mixer variables are set
+    }
+
+    #endregion
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -46,9 +72,13 @@ public class WeaponController : MonoBehaviour
         {
             TryShoot();
         }
-        if (Input.GetKeyDown(KeyCode.Escape))
+        else if (Input.GetKeyDown(KeyCode.R))
         {
             TryReload();
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape)|| Input.GetKeyDown(KeyCode.P))
+        {
+            Pause();
         }
     }
 
@@ -131,6 +161,27 @@ public class WeaponController : MonoBehaviour
         reloadText.gameObject.SetActive(true);
     }
     #endregion
+
+    public void Pause()
+    {
+        if (pause == false)
+        {
+            pausePanel.SetActive(true);
+            pause = true;
+            Time.timeScale = 0;
+
+            //mixer.SetFloat("volume_music", -50);
+            //mixer.SetFloat("volume_ambient", -80);
+            //mixer.SetFloat("volume_sfx", -80);
+        }
+        else 
+        {
+            pause = false;
+            pausePanel.SetActive(false);
+            //RestoreSettings();
+            Time.timeScale = 1;
+        }
+    }
 
     private IEnumerator DestroyAfterDelay(GameObject obj, float delay)
     {
