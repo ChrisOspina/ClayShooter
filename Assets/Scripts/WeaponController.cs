@@ -49,18 +49,25 @@ public class WeaponController : MonoBehaviour
 
     void saveSettings()
     {
-        //todo come back when mixer variables are set
+        mixer.GetFloat("volume_master", out volume_master);
+        mixer.GetFloat("volume_music", out volume_music);
+        mixer.GetFloat("volume_sfx", out volume_sfx);
+        mixer.GetFloat("volume_ambient", out volume_ambient);
     }
 
     void restoreSettings()
     {
-        //todo come back when mixer variables are set
+        mixer.SetFloat("volume_master", volume_master);
+        mixer.SetFloat("volume_music", volume_music);
+        mixer.SetFloat("volume_sfx", volume_sfx);
+        mixer.SetFloat("volume_ambient", volume_ambient);
     }
 
     #endregion
 
     void Start()
     {
+        saveSettings();
         audioSource = GetComponent<AudioSource>();
         currentAmmo = gunData.magazineSize;
         ammoText.text= "Bullets: " + currentAmmo;
@@ -170,18 +177,20 @@ public class WeaponController : MonoBehaviour
             pause = true;
             Time.timeScale = 0;
 
-            //mixer.SetFloat("volume_music", -50);
-            //mixer.SetFloat("volume_ambient", -80);
-            //mixer.SetFloat("volume_sfx", -80);
+            mixer.SetFloat("volume_music", -50);
+            mixer.SetFloat("volume_ambient", -80);
+            mixer.SetFloat("volume_sfx", -80);
         }
         else 
         {
             pause = false;
             pausePanel.SetActive(false);
-            //RestoreSettings();
+            restoreSettings();
             Time.timeScale = 1;
         }
     }
+
+
 
     private IEnumerator DestroyAfterDelay(GameObject obj, float delay)
     {
