@@ -1,27 +1,20 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    public Button playButton;
-    public Button quitButton;
-    public Button optionsButton;
-
-    void Start()
+    void Update()
     {
-        if (playButton != null)
+        if (Input.anyKeyDown || Input.GetButtonDown("Jump"))
         {
-            playButton.onClick.AddListener(StartGame);
-        }
-        if (quitButton != null) 
-        {
-            quitButton.onClick.AddListener(QuitGame);
+            StartGame();
         }
     }
 
     public void StartGame()
     {
+        GameData.time = 60f;
+        GameData.score = 0;
         SceneManager.LoadScene("Scene1");
     }
 

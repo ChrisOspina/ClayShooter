@@ -6,26 +6,16 @@ using TMPro;
 
 public class ScoreController : MonoBehaviour
 {
-    public int score;
     public TMP_Text scoreValue;
-
-    void Update()
-    {
-        if (score < 0)
-        {
-            ChangeScore(0);
-        }
-    }
     
     public void ChangeScore(int sentScore)
     {
-        score += sentScore;
-        scoreValue.text = "Score: " + score.ToString();
-        GameData.score = score;
+        GameData.score += sentScore;
+        scoreValue.text = "Score: " + GameData.score.ToString();
 
-        if (score > GameData.highscore)
+        if (GameData.score > GameData.highscore)
         {
-            GameData.highscore = score;
+            GameData.highscore = GameData.score;
         }
     }
 }

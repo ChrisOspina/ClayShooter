@@ -753,7 +753,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5c999da3f74d6fa438e4932be20f7ccd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 86c3f89f7d4a4494181a888c254c91e1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1403,7 +1403,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.424
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1459,7 +1459,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_WalkSpeed
-      value: 2.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: 'm_FootstepSounds.Array.data[0]'
@@ -1577,7 +1577,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b67b982a0261b74db3d14daf4294f74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
   scoreValue: {fileID: 1788295887}
 --- !u!4 &990315208
 Transform:

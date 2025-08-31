@@ -6,19 +6,18 @@ using TMPro;
 
 public class TimeKeeper : MonoBehaviour
 {
-    public static float time = 60f;
     public TMP_Text timeText;
 
     // Update is called once per frame
     void Update()
     {
-        time -= Time.deltaTime;
+        GameData.time -= Time.deltaTime;
 
-        if(time <= 0)
+        if(GameData.time <= 0)
         {
             TimeUp();
         }
-        timeText.text = "Time: " + time.ToString("0.0");
+        timeText.text = "Time: " + GameData.time.ToString("0.0");
     }
 
     private void TimeUp()
