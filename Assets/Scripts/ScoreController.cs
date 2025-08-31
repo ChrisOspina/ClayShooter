@@ -8,6 +8,14 @@ public class ScoreController : MonoBehaviour
 {
     public int score;
     public TMP_Text scoreValue;
+
+    void Update()
+    {
+        if (score < 0)
+        {
+            ChangeScore(0);
+        }
+    }
     
     public void ChangeScore(int sentScore)
     {
@@ -19,10 +27,5 @@ public class ScoreController : MonoBehaviour
         {
             GameData.highscore = score;
         }
-
-        //if(score < 0)
-        //{
-        //    ChangeScore(0);
-        //}
     }
 }

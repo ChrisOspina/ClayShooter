@@ -35,7 +35,11 @@ public class PiegonScript : MonoBehaviour
     public void Destroy()
     {
         PlayExplosionSound();
-        GameObject.Find("ScoreKeeper").GetComponent<ScoreController>().ChangeScore(pointValue);
+
+        if (GameData.score >= 0)
+        {
+            GameObject.Find("ScoreKeeper").GetComponent<ScoreController>().ChangeScore(pointValue);
+        }
         Instantiate(explosion, transform.position, transform.rotation);
         Destroy(gameObject, explodeSound.length);
     }
