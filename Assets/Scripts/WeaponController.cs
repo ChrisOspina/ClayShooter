@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Audio;
 using TMPro;
 
 public class WeaponController : MonoBehaviour
 {
+
+    //Note this script is also used for player control too.
     #region imports
     public GunData gunData;
     [HideInInspector] public GameObject playerCam;
@@ -15,6 +18,8 @@ public class WeaponController : MonoBehaviour
     private float nextTimetoFire = 0f;
 
     private bool isReloading = false;
+    private float flashInterval = 0.5f;
+    private Coroutine flashRoutine;
 
     [Header("UI")]
     public TMP_Text ammoText;
@@ -153,7 +158,7 @@ public class WeaponController : MonoBehaviour
     private IEnumerator Reload()
     {
         isReloading = true;
-        reloadText.gameObject.SetActive(false);
+        StopReloadNotification();
         audioSource.PlayOneShot(reloadSound);
 
         yield return new WaitForSeconds(gunData.reloadTime);
@@ -165,7 +170,30 @@ public class WeaponController : MonoBehaviour
 
     private void NotifyReload()
     {
-        reloadText.gameObject.SetActive(true);
+        if (flashRoutine != null)
+            StopCoroutine(flashRoutine);
+
+        // Start flashing
+        flashRoutine = StartCoroutine(FlashReloadText());
+    }
+
+    private IEnumerator FlashReloadText()
+    {
+        while (true)
+        {
+            reloadText.gameObject.SetActive(!reloadText.gameObject.activeSelf);
+            yield return new WaitForSeconds(flashInterval);
+        }
+    }
+
+    public void StopReloadNotification()
+    {
+        if (flashRoutine != null)
+        {
+            StopCoroutine(flashRoutine);
+            flashRoutine = null;
+        }
+        reloadText.gameObject.SetActive(false);
     }
     #endregion
 
